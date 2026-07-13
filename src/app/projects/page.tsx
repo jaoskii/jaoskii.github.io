@@ -157,7 +157,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
                   href={project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.preventDefault() || window.open(project.repoUrl, "_blank")}
+                  onClick={(e) => e.stopPropagation()}
                   className="text-text-muted hover:text-accent-green transition-colors"
                   aria-label="GitHub"
                 >
@@ -169,7 +169,7 @@ function TiltCard({ project, index }: { project: Project; index: number }) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.preventDefault() || window.open(project.liveUrl, "_blank")}
+                  onClick={(e) => e.stopPropagation()}
                   className="text-text-muted hover:text-accent transition-colors"
                   aria-label="Live site"
                 >

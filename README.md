@@ -54,13 +54,16 @@ src/
 | `clsx` | Conditional className composition |
 | `tailwind-merge` | Merges Tailwind classes without conflicts |
 
-## Deployment
+## Deployment (GitHub Pages)
+
+This site uses Next.js static export and deploys via GitHub Actions on push to `master`.
+
+1. In the repo: **Settings → Pages → Source → GitHub Actions**
+2. Push to `master` (or run the **Deploy to GitHub Pages** workflow manually)
+3. Site URL: https://jaoskii.github.io
+
+Local static build:
 
 ```bash
-# Vercel (recommended)
-npx vercel
-
-# Or build manually
-npm run build
-npm start
+npm run build   # outputs to out/
 ```
