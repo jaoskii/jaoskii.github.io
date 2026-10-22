@@ -1,0 +1,72 @@
+/* Structure for the shared carousel (.cz) and detail slider (.fx). Each page themes the look. */
+
+/* project art: themed through --art-* on the page */
+.art-svg{width:100%;height:100%;display:block}
+.art-shots{position:relative;width:100%;height:100%;overflow:hidden;background:#fff;border-radius:var(--art-r,10px);border:calc(var(--art-sw,0)*1px) solid var(--art-stroke,transparent);box-sizing:border-box}
+.art-shots img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;opacity:0;transition:opacity .7s ease}
+.art-shots img.on{opacity:1}
+.art-svg .bg{fill:var(--art-bg,transparent)}
+.art-svg .a0{fill:var(--art-0)} .art-svg .a1{fill:var(--art-1)} .art-svg .a2{fill:var(--art-2)} .art-svg .a3{fill:var(--art-3)}
+.art-svg :is(.a0,.a1,.a2,.a3){stroke:var(--art-stroke,none);stroke-width:var(--art-sw,0);filter:var(--art-filter,none)}
+.art-svg rect:not(.bg){rx:var(--art-r,10px)}
+.art-svg .a1{filter:var(--art-a1-filter,var(--art-filter,none))}
+
+/* carousel */
+.cz{--cz-w:min(42rem,84vw);--cz-side:.6}
+.cz-stage{position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:grab;margin-block:.5rem 1rem}
+.cz-stage.dragging{cursor:grabbing}
+.cz-slide{position:absolute;left:50%;top:0;width:var(--cz-w);display:block;color:inherit;text-decoration:none;transform-origin:50% 50%;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .45s,filter .45s;will-change:transform}
+.cz-stage.dragging .cz-slide{transition:none}
+.cz-slide:not(.is-center){filter:brightness(calc(1 - var(--a,0)*.35)) saturate(calc(1 - var(--a,0)*.35))}
+.cz-slide .cz-fade{opacity:calc(1 - var(--a,0)*.9);transition:opacity .45s}
+.cz-slide .cz-cta{display:inline-flex;align-items:center;gap:.4rem;transition:gap .25s}
+.cz-slide.is-center:hover .cz-cta{gap:.8rem}
+.cz-slide:focus-visible{outline-offset:6px}
+.cz-art{aspect-ratio:16/9;overflow:hidden}
+.cz[data-layout=stack]{--cz-w:min(50rem,82vw);--stack-x:9;--stack-y:12;--stack-n:3}
+.cz[data-layout=stack] .cz-stage{margin-top:3.5rem}
+@media (max-width:640px){.cz[data-layout=stack]{--cz-w:84vw;--stack-x:4;--stack-y:14}}
+
+/* detail slider */
+.fx{position:relative;height:100svh;overflow:hidden;background-color:var(--fx-bg);transition:background-color .9s ease}
+.fx-track{display:flex;height:100%;transition:transform .85s cubic-bezier(.7,0,.2,1);will-change:transform}
+.fx.no-anim,.fx.no-anim *{transition:none!important}
+.fx-slide{flex:0 0 100%;height:100%;position:relative;display:grid;place-items:center;padding:5.5rem 1.25rem 1.5rem;overflow:hidden}
+.fx .fx-frame{position:relative;width:min(36rem,74vw);aspect-ratio:16/10;overflow:hidden;transition:transform .5s cubic-bezier(.6,0,.2,1)}
+.fx.fx-out .fx-frame{transform:scale(.72)}
+.fx-title{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:min(92vw,72rem);margin:0;text-align:center;font-size:clamp(2.6rem,8.5vw,8rem);line-height:.9;pointer-events:none;text-wrap:balance;transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .5s}
+.fx-slide:not(.is-active) .fx-title,.fx.fx-out .fx-title{opacity:0;transform:translate(-50%,-20%)}
+.fx .fx-details{position:absolute;right:1.5rem;bottom:1.5rem;width:min(25rem,calc(100% - 3rem));display:flex;flex-direction:column;gap:.6rem;transition:opacity .5s .1s,transform .7s cubic-bezier(.2,.8,.2,1) .1s}
+.fx-slide:not(.is-active) .fx-details,.fx.fx-out .fx-details{opacity:0;transform:translateY(24px)}
+/* slides with real screenshots: big frame on the left, smaller title above it, clear of the details card */
+.fx-slide.has-shots{place-items:start;align-content:start;padding-left:4vw;padding-top:5rem}
+.fx-slide.has-shots .fx-frame{width:min(54rem,calc(100vw - 25rem - 3rem - 8vw));margin-top:clamp(5rem,9vw,8rem)}
+.fx-slide.has-shots .fx-title{left:4vw;top:5rem;transform:none;width:auto;max-width:calc(100vw - 8vw);text-align:left;font-size:clamp(2rem,4.5vw,4.25rem)}
+.fx-slide.has-shots:not(.is-active) .fx-title,.fx.fx-out .fx-slide.has-shots .fx-title{transform:translateY(-30%)}
+.fx-points{display:flex;flex-direction:column;gap:.25rem;padding-left:1.1rem;list-style:disc}
+.fx-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.fx-top{position:absolute;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.25rem}
+.fx-nav{position:absolute;left:1.5rem;bottom:1.5rem;z-index:20;display:flex;align-items:center;gap:.75rem}
+.fx-index{width:min(64rem,92vw);max-height:86vh;padding:1.5rem;border:0;overflow:auto;margin:auto}
+.fx-index::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(6px)}
+.fx-index-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;gap:1rem}
+.fx-index-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1rem}
+.fx-index-item{display:flex;flex-direction:column;gap:.4rem;color:inherit;text-decoration:none;padding:.75rem;transition:transform .25s}
+.fx-index-item:hover{transform:translateY(-3px)}
+.fx-index-art{aspect-ratio:16/10;overflow:hidden}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media (max-width:767px){
+  .fx-slide{place-items:start center;align-content:start;padding-top:4.75rem;overflow-y:auto}
+  .fx-frame{width:92vw}
+  .fx-title{top:calc(4.75rem + 28vw);font-size:clamp(2.2rem,11vw,3.5rem)}
+  .fx .fx-details{position:relative;right:auto;bottom:auto;width:100%;margin:1rem 0 5rem}
+  .fx-nav{left:50%;transform:translateX(-50%);bottom:1rem}
+  .fx-slide.has-shots{place-items:start center;padding-left:1.25rem;padding-top:4.75rem}
+  .fx-slide.has-shots .fx-frame{width:92vw;margin-top:0}
+  .fx-slide.has-shots .fx-title{position:relative;left:auto;top:auto;margin-top:1rem;width:100%;max-width:none;font-size:clamp(2rem,10vw,3rem)}
+}
+@media (prefers-reduced-motion:reduce){.cz-slide,.fx-track,.fx-frame,.fx-title,.fx-details{transition:none}}
+.fx>.fx-track{position:relative;z-index:1}
+.fx-decor{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fx [data-count],.cz [data-count]{white-space:nowrap}

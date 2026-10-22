@@ -1,0 +1,41 @@
+/* Inventee case study. Load after projects.js, before carousel.js / fashion.js. */
+window.PROJECTS.unshift({
+  id: 'inventee',
+  title: 'inventee.io',
+  cat: 'SaaS · Multi-tenant',
+  stack: ['NestJS', 'GraphQL', 'PostgreSQL', 'React'],
+  type: 'Side project · inventee.io, 2026',
+  desc: 'Inventory and accounting SaaS for businesses that buy, stock and sell. A marketing site, a workspace per company at yourcompany.inventee.io, and an operator console that provisions them.',
+  points: [
+    'Database per tenant: each company gets its own Postgres database, provisioned from the console',
+    '22 document types post once to the stock card, the general ledger and the subledgers, with FIFO cost and lot expiry',
+    'Password + emailed sign-in code, rotating refresh tokens, roles per action and a full audit trail',
+    'Operator console: tenants, invites, storage limits, live sign-ins, themes and platform audit log',
+  ],
+  art: 'tiles',
+  layout: 'desk',
+  /* shots: [src, alt, group, label]; groups drive the filter tabs and note card on the case-study page */
+  shotGroups: [
+    { id: 'all', label: 'All', note: 'The whole product: a marketing site, a workspace for every company, the console that runs them and the API behind all three.' },
+    { id: 'site', label: 'Marketing site', note: 'www.inventee.io: the pitch, a sample branch dashboard and an inquiry form that lands in the console.' },
+    { id: 'tenant', label: 'Tenant app', note: "Each company's own workspace at yourcompany.inventee.io: documents, stock, the books and 94 reports." },
+    { id: 'console', label: 'Console', note: 'Operator console: provision tenants, invite first admins, watch sign-ins and storage, set themes.' },
+    { id: 'api', label: 'API', note: 'api.inventee.io: one NestJS GraphQL API, a Postgres database per company, picked per request from the X-Tenant header.' },
+  ],
+  images: [
+    ['assets/img/inventee/site-hero.jpg', 'inventee.io marketing site hero: Every unit, accounted for', 'site', 'Marketing · hero'],
+    ['assets/img/inventee/site-dashboard.jpg', 'inventee.io marketing site with a sample branch dashboard', 'site', 'Marketing · sample dashboard'],
+    ['assets/img/inventee/site-stock-card.jpg', 'Marketing site live stock card demo posting a receiving report', 'site', 'Marketing · stock card demo'],
+    ['assets/img/inventee/tenant-sign-in.jpg', 'Tenant workspace sign-in with a live stock card', 'tenant', 'Tenant · sign-in'],
+    ['assets/img/inventee/tenant-dashboard.jpg', 'Tenant dashboard with sales, receivables, payables and unposted documents', 'tenant', 'Tenant · dashboard'],
+    ['assets/img/inventee/tenant-sales-journal.jpg', 'Posted sales journal with barcode item lines', 'tenant', 'Tenant · sales journal'],
+    ['assets/img/inventee/tenant-items.jpg', 'Stockcard item master with stock, expiry and inventory value tiles', 'tenant', 'Tenant · item master'],
+    ['assets/img/inventee/tenant-reports.jpg', 'Report catalog with 94 reports and balance sheet filters', 'tenant', 'Tenant · reports'],
+    ['assets/img/inventee/tenant-roles.jpg', 'Roles and permissions matrix per module and action', 'tenant', 'Tenant · roles & permissions'],
+    ['assets/img/inventee/console-overview.jpg', 'Operator console overview: workspaces, users, storage and workspace health', 'console', 'Console · overview'],
+    ['assets/img/inventee/console-tenants.jpg', 'Operator console tenant list with first-admin invite status', 'console', 'Console · tenants'],
+    ['assets/img/inventee/console-themes.jpg', 'Operator console theme picker with eleven light and dark themes', 'console', 'Console · themes'],
+    ['assets/img/inventee/api-hub.jpg', 'Diagram: one API serving the marketing site, tenant app and console, with a database per company', 'api', 'API · hub'],
+    ['assets/img/inventee/api-schema.jpg', 'Schema map: 127 GraphQL operations by module, guards and a sample stock card query', 'api', 'API · schema map'],
+  ],
+});
