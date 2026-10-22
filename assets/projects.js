@@ -288,6 +288,9 @@ setInterval(() => {
   });
 }, 2800);
 
+/* Bump when the covers are re-rendered (same file names, so browsers would keep the old ones) */
+window.COVERS_V = '20261023b';
+
 /* Official links: links: [[label, url], ...] → buttons that open in a new tab */
 window.projectLinks = links => (links || []).map(([label, url]) =>
   `<a class="btn btn-sm btn-b bg-white" href="${window.escapeHTML(url)}" target="_blank" rel="noopener">${window.escapeHTML(label)} ↗</a>`).join('');
@@ -303,7 +306,7 @@ window.fillProject = function (tpl, p, i, n, chipClass) {
     art: p.images ? window.projectShots(p) : p.nda && window.ndaArt ? window.ndaArt(p) : window.projectArt(p.art),
     // static designed cover (assets/img/covers/<id>.jpg, rendered from the screenshots) for cards; falls back to the art
     cover: p.images && !p.nda
-      ? `<img class="art-cover" src="assets/img/covers/${esc(p.id)}.jpg" alt="${esc(p.title)}: ${esc(p.images[0][1])}" loading="lazy" draggable="false">`
+      ? `<img class="art-cover" src="assets/img/covers/${esc(p.id)}.jpg?v=${window.COVERS_V}" alt="${esc(p.title)}: ${esc(p.images[0][1])}" loading="lazy" draggable="false">`
       : null,
     chips: p.stack.map(s => `<span class="${chipClass || ''}">${esc(s)}</span>`).join(''),
     links: window.projectLinks(p.links),
