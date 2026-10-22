@@ -301,8 +301,13 @@ window.fillProject = function (tpl, p, i, n, chipClass) {
     title: esc(p.title), cat: esc(p.cat), type: esc(p.type) + (p.nda ? ' · under NDA' : ''),
     desc: red(esc(p.desc)), points: p.points.map(s => `<li>${red(esc(s))}</li>`).join(''),
     art: p.images ? window.projectShots(p) : p.nda && window.ndaArt ? window.ndaArt(p) : window.projectArt(p.art),
+    // static designed cover (assets/img/covers/<id>.jpg, rendered from the screenshots) for cards; falls back to the art
+    cover: p.images && !p.nda
+      ? `<img class="art-cover" src="assets/img/covers/${esc(p.id)}.jpg" alt="${esc(p.title)}: ${esc(p.images[0][1])}" loading="lazy" draggable="false">`
+      : null,
     chips: p.stack.map(s => `<span class="${chipClass || ''}">${esc(s)}</span>`).join(''),
     links: window.projectLinks(p.links),
   };
+  map.cover = map.cover || map.art;
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => (k in map ? map[k] : ''));
 };

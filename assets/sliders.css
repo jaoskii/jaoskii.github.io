@@ -5,6 +5,9 @@
 .art-shots{position:relative;width:100%;height:100%;overflow:hidden;background:#fff;border-radius:var(--art-r,10px);border:calc(var(--art-sw,0)*1px) solid var(--art-stroke,transparent);box-sizing:border-box}
 .art-shots img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left top;opacity:0;transition:opacity .7s ease}
 .art-shots img.on{opacity:1}
+/* static designed cover (cards): fills its box edge to edge, no padding or tint around it */
+.art-cover{display:block;width:100%;height:100%;object-fit:cover}
+:is(.cz-art,.fx-index-art):has(> .art-cover){padding:0}
 .art-svg .bg{fill:var(--art-bg,transparent)}
 .art-svg .a0{fill:var(--art-0)} .art-svg .a1{fill:var(--art-1)} .art-svg .a2{fill:var(--art-2)} .art-svg .a3{fill:var(--art-3)}
 .art-svg :is(.a0,.a1,.a2,.a3){stroke:var(--art-stroke,none);stroke-width:var(--art-sw,0);filter:var(--art-filter,none)}
