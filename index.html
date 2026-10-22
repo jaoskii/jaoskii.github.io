@@ -24,6 +24,8 @@
     --radius-box:0.5rem; --radius-field:0.4rem; --radius-selector:0.4rem; --border:3px; --depth:0; --noise:0;
     --sh:6px; --speed:24s;
   }
+  /* fluid scale: rem grows on big screens (capped, so ultrawide stays a centred column) and holds back on short ones */
+  html{font-size:clamp(16px,min(calc(10px + .42vw),1.75vh),21px);}
   body{background:#f1eefb;}
   .page{font-family:"Archivo",ui-sans-serif,system-ui,sans-serif;}
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
@@ -44,8 +46,15 @@
 
   /* hero */
   .hero-title{display:flex;flex-direction:column;gap:.08em;}
-  .mega-lead{font-size:clamp(1.5rem,4.5vw,2.75rem);line-height:1;letter-spacing:.06em;}
-  .mega{font-size:clamp(2.8rem,10vw,8rem);line-height:.84;letter-spacing:-.02em;}
+  .mega-lead{font-size:clamp(1.25rem,min(4.5vw,5.5svh),2.75rem);line-height:1;letter-spacing:.06em;}
+  .mega{font-size:clamp(2.25rem,min(10vw,14svh),8rem);line-height:.84;letter-spacing:-.02em;}
+  /* short landscape screens: tighten the hero so it fits in one view */
+  @media (min-width:768px) and (max-height:820px){
+    .hero-nav{padding-top:1rem;}
+    #sticker-zone{padding-block:1.25rem;gap:1.25rem;}
+    .hero-bio{font-size:1.125rem;line-height:1.55;}
+    .hero-marquee{margin-bottom:1.5rem;}
+  }
   /* jaoski.dev wordmark: theme colours, so the palette shuffle recolours it too */
   .jlogo{display:inline-flex;align-items:center;gap:.2rem;font-family:Archivo,sans-serif;font-stretch:125%;font-weight:900;line-height:1;color:#111;text-decoration:none}
   .jl-mark{display:grid;place-items:center;width:2.1rem;height:2.1rem;background:var(--color-primary);border:3px solid #111;box-shadow:3px 3px 0 #111;border-radius:.45rem;font-size:1.35rem;transform:rotate(-6deg);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
@@ -64,7 +73,7 @@
   .track::-webkit-scrollbar{display:none;}
   .track>*{scroll-snap-align:start;flex:0 0 min(86%,34rem);}
   .track.dragging{cursor:grabbing;}
-  .dots{display:flex;gap:.5rem;}
+  .dots{display:flex;flex-wrap:wrap;gap:.5rem;}
   .dots .dot{width:1.1rem;height:1.1rem;border:3px solid #111;background:#fff;}
   .dots .dot[aria-current=true]{background:#111;width:2.5rem;}
   .step-card{flex-basis:min(78%,21rem)!important;}
@@ -110,7 +119,7 @@
 
   <!-- HERO -->
   <header id="top" class="min-h-[100svh] flex flex-col">
-    <div class="mx-auto w-full max-w-6xl px-4 sm:px-6 pt-8">
+    <div class="hero-nav mx-auto w-full max-w-6xl px-4 sm:px-6 pt-8">
       <nav class="bx bg-white rounded-box px-4 py-3 flex items-center gap-3 flex-wrap">
         <a href="#top" class="jlogo" aria-label="jaoski.dev, back to top"><span class="jl-mark" aria-hidden="true">j</span><span class="jl-word">aoski</span><span class="jl-dev">.dev</span></a>
         <div class="flex-1"></div>
@@ -126,14 +135,14 @@
         <span class="mega">Full stack.<br><span class="hl whitespace-nowrap">Full speed.</span><br>For real.</span>
       </h1>
       <div class="grid md:grid-cols-[1.4fr_1fr] gap-6 items-end">
-        <p class="text-xl sm:text-2xl font-medium max-w-2xl">Rajhi John Tabora. 10+ years shipping production web, APIs and mobile apps across fintech, distribution, e-learning and e-commerce. TypeScript, React, Vue, Laravel, Node, Flutter. Fast, and no fluff.</p>
+        <p class="hero-bio text-xl sm:text-2xl font-medium max-w-2xl">Rajhi John Tabora. Fullstack dev, photographer, gamer, and I debug like it's a boss fight. 10+ years of web, APIs and mobile apps across fintech, distribution, e-learning and e-commerce. No cheat codes, just shipped code.</p>
         <div class="flex flex-wrap gap-4 md:justify-end">
           <a href="#work" class="btn btn-lg btn-b btn-neutral">SEE WORK →</a>
           <a href="#contact" class="btn btn-lg btn-b bg-white">CONTACT</a>
         </div>
       </div>
       <!-- draggable stickers -->
-      <div class="sticker bx bg-accent rounded-full w-28 h-28 grid place-items-center text-center wide font-black leading-none rotate-[10deg]" style="top:8%;right:4%" aria-hidden="true"><span>10+<br><span class="text-xs mono">YEARS</span></span></div>
+      <div class="sticker bx bg-accent rounded-full w-28 h-28 hidden sm:grid place-items-center text-center wide font-black leading-none rotate-[10deg]" style="top:8%;right:4%" aria-hidden="true"><span>10+<br><span class="text-xs mono">YEARS</span></span></div>
       <div class="sticker bx bg-primary rounded px-3 py-2 mono font-semibold -rotate-6 hidden lg:block" style="top:40%;right:8%" aria-hidden="true">★ FLUTTER</div>
       <div class="sticker bx bg-success rounded px-3 py-2 mono font-semibold rotate-3 hidden lg:flex items-center gap-2" style="top:24%;right:22%" aria-hidden="true"><span class="status status-neutral"></span>OPEN TO REMOTE · US HOURS</div>
       <div class="sticker bx-sm bg-secondary rounded px-3 py-2 mono font-semibold rotate-[5deg] hidden lg:block" style="top:3%;right:36%" aria-hidden="true">◎ WEB</div>
@@ -144,7 +153,7 @@
       <p class="mono text-xs font-semibold absolute bottom-3 right-6 hidden lg:block">↑ DRAG THE STICKERS</p>
     </div>
 
-    <div class="bx bg-neutral text-neutral-content py-3 overflow-hidden border-x-0 rotate-[-1deg] mb-10 mx-[-1rem]" aria-hidden="true">
+    <div class="hero-marquee bx bg-neutral text-neutral-content py-3 overflow-hidden border-x-0 rotate-[-1deg] mb-10 mx-[-1rem]" aria-hidden="true">
       <div class="marquee wide font-black text-3xl uppercase" id="marquee">
         <span>TypeScript ✦ React ✦ Next.js ✦ Vue 3 ✦ Nuxt ✦ Angular ✦ Laravel ✦ NestJS ✦ Node ✦ MySQL ✦ PostgreSQL ✦ Flutter ✦ Docker ✦ AWS ✦</span><span>TypeScript ✦ React ✦ Next.js ✦ Vue 3 ✦ Nuxt ✦ Angular ✦ Laravel ✦ NestJS ✦ Node ✦ MySQL ✦ PostgreSQL ✦ Flutter ✦ Docker ✦ AWS ✦</span>
       </div>
@@ -154,7 +163,7 @@
   <div class="mx-auto max-w-6xl px-4 sm:px-6 pb-8 flex flex-col gap-20">
 
     <!-- PROFILE -->
-    <section id="profile" class="grid lg:grid-cols-[auto_1fr] gap-6 scroll-mt-8">
+    <section id="profile" class="grid lg:grid-cols-[20rem_1fr] gap-6 scroll-mt-8">
       <div class="bx bg-secondary rounded-box p-6 flex flex-col items-center gap-5 overflow-visible">
         <div class="relative -rotate-3">
           <div class="bx bg-primary w-56 h-64 overflow-hidden relative">
@@ -179,7 +188,8 @@
           <h2 class="wide font-black text-4xl sm:text-6xl uppercase">Who dis<span class="text-secondary">?</span></h2>
           <p class="wide font-black text-xl uppercase bg-primary w-fit px-2 mt-2">Built to ship. Built to own.</p>
         </div>
-        <p class="text-lg font-medium">I'm a senior full stack and mobile developer from Caloocan, Philippines. TypeScript front ends, PHP and Node back ends, Flutter on mobile, and solid MySQL / PostgreSQL schema design underneath. Since 2015 I've led web teams at Solutionbase and Cushyfy, led mobile at Rebisco, built a WMATA transit app for a US robotics company, and shipped Installments and Bills payment for Maya through Ascendion. Right now I'm at Vault Outsourcing, moving an offshore team onto Git, GitHub → cPanel autodeploys and AI-assisted development, while building the APIs, web apps and mobile app behind My Money House and Megarewards.</p>
+        <p class="text-lg font-medium">I'm a senior full stack and mobile developer from Caloocan, Philippines, at home on every layer. Front ends in TypeScript with React, Next.js, Vue / Nuxt and Angular. Back ends and APIs in Node (NestJS, Express), Laravel and Django: REST and GraphQL design, JWT / OAuth auth, payment gateway integrations. Underneath it all, MySQL, PostgreSQL and SQL Server, with schemas designed from scratch, multi-tenant data models and queries tuned for production load. Flutter on mobile, Docker and AWS to ship it.</p>
+        <p class="text-lg font-medium">Since 2015 I've led web teams at Solutionbase and Cushyfy, led mobile at Rebisco, built a WMATA transit app and its backend for Diversified Robotics, a foreign company based in the US, and shipped Installments and Bills payment for <strong class="bg-primary px-1">Maya, one of the Philippines' fintech giants</strong>, through Ascendion. Right now I'm at Vault Outsourcing, modernizing an offshore team's process with AI-assisted development, continuous integration and automated deployments, while building the APIs, web apps and mobile app behind My Money House and Megarewards.</p>
         <div class="grid grid-cols-3 gap-3">
           <div class="bx-sm bg-accent p-3"><p class="wide font-black text-3xl">10+</p><p class="mono text-xs">YEARS</p></div>
           <div class="bx-sm bg-primary p-3"><p class="wide font-black text-3xl">3</p><p class="mono text-xs">TEAM WORKFLOWS MODERNIZED</p></div>
