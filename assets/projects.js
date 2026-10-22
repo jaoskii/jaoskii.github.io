@@ -4,14 +4,15 @@ window.PROJECTS = [
   {
     id: 'megarewards-platform',
     title: 'Megarewards platform',
-    cat: 'Web · APIs',
-    stack: ['Laravel', 'APIs', 'GoHighLevel', 'WordPress'],
+    cat: 'Web · Mobile · APIs',
+    stack: ['Laravel', 'Flutter', 'GoHighLevel', 'WordPress'],
     type: 'Client work · Vault Outsourcing, 2026',
-    desc: 'Modernized megarewards.au and built its backend APIs, reporting dashboards and a central dashboard that pulls GoHighLevel and WordPress data into one place.',
-    points: ['Backend APIs for the Megarewards website', 'Central dashboard merging GHL + WordPress data, simpler content management', 'iGO Direct discount offers API wired into the existing CRM', 'One Laravel API with 309 routes behind the site, admin dashboard, subscribe forms and app'],
+    desc: 'Modernized megarewards.au and built its backend APIs, reporting dashboards, a central dashboard that pulls GoHighLevel and WordPress data into one place, and the member mobile app.',
+    points: ['Backend APIs for the Megarewards website', 'Central dashboard merging GHL + WordPress data, simpler content management', 'iGO Direct discount offers API wired into the existing CRM', 'One Laravel API with 309 routes behind the site, admin dashboard, subscribe forms and app', 'Flutter member app on the same API and CRM, with the store release handled end to end'],
     art: 'bars',
     layout: 'wall',
-    /* dashboard shots are DOM-masked (staff name → "Admin User"); figures on state totals are the client's aggregates */
+    /* dashboard shots are DOM-masked (staff name → "Admin User"); figures on state totals are the client's aggregates;
+       member name on the app home screen is masked to "ALEX" */
     links: [['megarewards.au', 'https://megarewards.au'], ['Subscribe form', 'https://subscribe.megarewards.au']],
     /* optional desc / points / stack / links per group replace the project's own in the details card while that tab is picked */
     shotGroups: [
@@ -27,6 +28,10 @@ window.PROJECTS = [
       { id: 'dashboard', label: 'Admin dashboard', note: 'Mega Admin: competitions, partners, reels, subscription forms, GHL reports and an asset bucket in one place.',
         desc: 'Mega Admin: one dashboard where the team runs competitions, partners, reels and signup forms, with GoHighLevel and WordPress data pulled into one place.',
         points: ['Competitions with activation toggles and rollback', 'Subscription forms with GHL tags and dynamic routes', 'Weekly subscribers by state and competition exports from GoHighLevel', 'Asset bucket synced with WordPress, plus an editor for the member onboarding tour'] },
+      { id: 'app', label: 'App', note: 'The member app: savings, giveaways and community in your pocket, on the same API as the website.',
+        desc: 'Built the Megarewards member app on the existing APIs and CRM, then handled the release to both app stores.',
+        points: ['Onboarding, sign-in and a home feed of featured offers and giveaways', 'Mega Savings, Giveaways and Community tabs, with offer and eGift card detail', 'Profile with giveaway entries and notifications, plus a dark mode', 'Released on the App Store and Google Play, store release managed end to end'],
+        stack: ['Flutter', 'Riverpod', 'APIs', 'CRM'], links: [] },
       { id: 'api', label: 'API', note: 'Laravel API: 309 routes, admin JWT / API key / member JWT layers, hourly Facebook and GHL syncs.',
         desc: 'One Laravel API behind the website, the subscribe forms, the admin dashboard and the mobile app.',
         points: ['309 routes, grouped by the app that calls them', 'Three auth layers: admin JWT, API key and member JWT', 'Hourly Facebook and GoHighLevel syncs', 'iGO Direct discount offers API wired into the existing CRM'],
@@ -48,28 +53,14 @@ window.PROJECTS = [
       ['assets/img/megarewards/dash-reports.jpg', 'Reports tree with GHL competition subscriber exports', 'dashboard', 'Dashboard · reports'],
       ['assets/img/megarewards/dash-asset-bucket.jpg', 'Asset bucket media library synced with WordPress', 'dashboard', 'Dashboard · asset bucket'],
       ['assets/img/megarewards/dash-ux-tour.jpg', 'Mega UX Tour editor for the member onboarding tour', 'dashboard', 'Dashboard · UX tour'],
+      ['assets/img/megarewards/app-onboarding.jpg', 'Megarewards app onboarding: free to subscribe, Mega Savings, Mega Loyalty Club', 'app', 'App · onboarding'],
+      ['assets/img/megarewards/app-home.jpg', 'Megarewards app sign-in, home and featured giveaway', 'app', 'App · sign-in & home'],
+      ['assets/img/megarewards/app-tabs.jpg', 'Megarewards app Savings, Giveaways and Community tabs', 'app', 'App · savings, giveaways, community'],
+      ['assets/img/megarewards/app-offer.jpg', 'Megarewards app discount list and eGift card offer detail', 'app', 'App · offer detail'],
+      ['assets/img/megarewards/app-account.jpg', 'Megarewards app profile, giveaway entries and notifications (name masked)', 'app', 'App · profile & entries'],
+      ['assets/img/megarewards/app-dark.jpg', 'Megarewards app in dark mode: home, Mega Savings and Mega Community', 'app', 'App · dark mode'],
       ['assets/img/megarewards/api-hub.jpg', 'Diagram: one API serving the site, dashboard, app and subscribe forms', 'api', 'API · hub'],
       ['assets/img/megarewards/api-routes.jpg', 'Route map: 309 routes by consumer, methods and middleware', 'api', 'API · route map'],
-    ],
-  },
-  {
-    id: 'megarewards-app',
-    title: 'Megarewards mobile app',
-    cat: 'Mobile',
-    stack: ['Flutter', 'Riverpod', 'APIs', 'CRM'],
-    type: 'Client work · Vault Outsourcing, 2026',
-    desc: 'Built the Megarewards mobile app on the existing APIs and CRM, then handled the release to both app stores.',
-    points: ['Connected to the existing APIs and CRM', 'Released on the App Store and Google Play', 'Store release managed end to end'],
-    art: 'phones',
-    layout: 'pile',
-    /* member name on the home screen is masked to "ALEX" */
-    images: [
-      ['assets/img/megarewards/app-onboarding.jpg', 'Megarewards app onboarding: free to subscribe, Mega Savings, Mega Loyalty Club'],
-      ['assets/img/megarewards/app-home.jpg', 'Megarewards app sign-in, home and featured giveaway'],
-      ['assets/img/megarewards/app-tabs.jpg', 'Megarewards app Savings, Giveaways and Community tabs'],
-      ['assets/img/megarewards/app-offer.jpg', 'Megarewards app discount list and eGift card offer detail'],
-      ['assets/img/megarewards/app-account.jpg', 'Megarewards app profile, giveaway entries and notifications (name masked)'],
-      ['assets/img/megarewards/app-dark.jpg', 'Megarewards app in dark mode: home, Mega Savings and Mega Community'],
     ],
   },
   {
