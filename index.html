@@ -168,7 +168,7 @@
         <div class="flex gap-2 flex-wrap justify-center w-full"><a href="https://github.com/jaoskii" target="_blank" rel="noopener" class="btn btn-sm btn-b bg-white">GITHUB</a><a href="https://linkedin.com/in/jaoski" target="_blank" rel="noopener" class="btn btn-sm btn-b bg-white">LINKEDIN</a></div>
         <div id="cv-card" class="bx bg-accent rounded-box p-5 flex flex-col items-center gap-4 w-[calc(100%+2.5rem)] -mx-5 rotate-6 relative z-10">
           <p class="wide font-black text-lg uppercase self-start">Download CV</p>
-          <a href="assets/Rajhi-John-Tabora-CV.pdf" download="Rajhi John Tabora - CV.pdf" id="cv-dl" aria-label="Download CV (PDF)" class="btn btn-b w-32 h-32 rounded-full bg-[#ff2d2d] text-base-100 border-black hover:bg-[#e02424] grid place-items-center">
+          <a href="assets/Rajhi-John-Tabora-CV.pdf" target="_blank" rel="noopener" id="cv-dl" aria-label="Open CV (PDF) in a new tab" class="btn btn-b w-32 h-32 rounded-full bg-[#ff2d2d] text-base-100 border-black hover:bg-[#e02424] grid place-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" class="w-12 h-12" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/><line x1="8" y1="9" x2="10" y2="9"/></svg>
           </a>
         </div>
@@ -571,7 +571,7 @@
     <footer class="mono text-sm text-center">© 2026 RAJHI JOHN TABORA · SENIOR FULL STACK DEVELOPER</footer>
   </div>
 
-  <div id="cv-toast" hidden role="status" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 alert bx bg-success rounded-box font-bold shadow-none w-fit max-w-[min(92vw,24rem)]">CV downloading — Rajhi John Tabora, PDF.</div>
+  <div id="cv-toast" hidden role="status" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 alert bx bg-success rounded-box font-bold shadow-none w-fit max-w-[min(92vw,24rem)]">CV opened in a new tab.</div>
 </div>
 
 <script src="assets/projects.js"></script>
@@ -717,7 +717,7 @@ const xpSync = () => { const all = xpItems.every(d => d.open); xpBtn.textContent
 xpBtn.addEventListener('click', () => { const open = !xpItems.every(d => d.open); xpItems.forEach(d => d.open = open); xpSync(); });
 xpItems.forEach(d => d.addEventListener('toggle', xpSync));
 
-/* Download CV — the link downloads the PDF; shake card, then toast */
+/* Download CV — the link opens the PDF in a new tab; shake card, then toast */
 const cvCard = document.getElementById('cv-card');
 const cvToast = document.getElementById('cv-toast');
 let cvToastTimer;
