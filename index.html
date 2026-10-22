@@ -570,12 +570,14 @@
         <p class="mono bg-white bx-sm rounded px-3 py-2 w-fit select-all">dev.rtabora@gmail.com</p>
         <p class="mono text-sm font-semibold">REMOTE · OVERLAPS EST / CST / PST</p>
       </div>
-      <form class="flex flex-col gap-4" onsubmit="event.preventDefault();this.querySelector('[data-ok]').hidden=false;this.reset();">
-        <input id="b-name" required class="input bx-sm w-full bg-white" placeholder="NAME" aria-label="Name">
-        <input id="b-email" type="email" required class="input bx-sm w-full bg-white" placeholder="EMAIL" aria-label="Email">
-        <textarea id="b-msg" class="textarea bx-sm w-full bg-white" rows="3" placeholder="PROJECT" aria-label="Project"></textarea>
-        <button class="btn btn-b btn-primary btn-lg">SEND →</button>
-        <div data-ok hidden role="status" class="alert bx-sm bg-success rounded font-bold">Message ready. This demo form doesn't send anywhere yet.</div>
+      <form id="contact-form" class="flex flex-col gap-4" data-endpoint="https://api.inventee.io/jao-api/contact" novalidate>
+        <input id="b-name" name="name" required maxlength="120" autocomplete="name" class="input bx-sm w-full bg-white" placeholder="NAME" aria-label="Name">
+        <input id="b-email" name="email" type="email" required maxlength="254" autocomplete="email" class="input bx-sm w-full bg-white" placeholder="EMAIL" aria-label="Email">
+        <textarea id="b-msg" name="message" required maxlength="3000" class="textarea bx-sm w-full bg-white" rows="3" placeholder="PROJECT" aria-label="Project"></textarea>
+        <!-- honeypot: people never see or fill this; bots that do are dropped by the API -->
+        <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="absolute -left-[9999px] w-px h-px opacity-0">
+        <button class="btn btn-b btn-primary btn-lg" data-send>SEND →</button>
+        <div data-status hidden role="status" aria-live="polite" class="alert bx-sm rounded font-bold"></div>
       </form>
     </section>
 
@@ -744,6 +746,48 @@ document.getElementById('cv-dl').addEventListener('click', () => {
   void cvCard.offsetWidth;
   cvCard.addEventListener('animationend', onEnd);
   cvCard.classList.add('shake');
+});
+
+/* Contact form → the portfolio endpoint on the inventee.io API (a local API when the page runs on localhost) */
+const cf = document.getElementById('contact-form');
+const cfStatus = cf.querySelector('[data-status]');
+const cfSend = cf.querySelector('[data-send]');
+const cfEndpoint = ['localhost', '127.0.0.1'].includes(location.hostname) ? 'http://localhost:4000/jao-api/contact' : cf.dataset.endpoint;
+function cfShow(kind, html){
+  cfStatus.className = 'alert bx-sm rounded font-bold ' + (kind === 'ok' ? 'bg-success' : 'bg-white');
+  cfStatus.innerHTML = `<span>${html}</span>`; // one child, so the alert's grid keeps the sentence together
+  cfStatus.hidden = false;
+}
+const cfMailto = '<a class="underline" href="mailto:dev.rtabora@gmail.com">email me directly</a>';
+cf.addEventListener('submit', async e => {
+  e.preventDefault();
+  const bad = [...cf.querySelectorAll('[required]')].find(f => !f.checkValidity());
+  if (bad) {
+    cfShow('err', bad.name === 'email' ? 'Enter a valid email address.' : bad.name === 'name' ? 'Enter your name.' : 'Tell me a bit about your project.');
+    bad.focus();
+    return;
+  }
+  cfSend.disabled = true;
+  cfSend.textContent = 'SENDING…';
+  try {
+    const res = await fetch(cfEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(cf))),
+      signal: AbortSignal.timeout(25000),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.message || 'Your message could not be sent.');
+    cf.reset();
+    cfShow('ok', 'Sent! I’ll get back to you soon. A copy is on its way to your inbox.');
+  } catch (err) {
+    let msg = err.name === 'TimeoutError' || err.name === 'TypeError' ? 'Your message could not be sent.' : window.escapeHTML(err.message);
+    if (!/[.!?]$/.test(msg)) msg += '.';
+    cfShow('err', /directly/.test(msg) ? msg.replace('email me directly', cfMailto) : /try again/i.test(msg) ? `${msg} Or ${cfMailto}.` : `${msg} Try again, or ${cfMailto}.`);
+  } finally {
+    cfSend.disabled = false;
+    cfSend.textContent = 'SEND →';
+  }
 });
 </script>
 </body>
