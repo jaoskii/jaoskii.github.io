@@ -45,6 +45,7 @@ window.PROJECTS.push(
     cat: 'Side project · Mobile',
     stack: ['Flutter', 'Riverpod', 'FFmpeg', 'SQLite'],
     type: 'Side project · github.com/jaoskii/snipr',
+    links: [['GitHub', 'https://github.com/jaoskii/snipr']],
     desc: 'Flutter app for gaming clips: trim and compress highlights to fit Discord, then mark up screenshots before sharing them.',
     points: [
       'Two-pass FFmpeg encode that lands clips under the Discord upload limit',
@@ -66,6 +67,7 @@ window.PROJECTS.push(
     cat: 'Side project · CLI',
     stack: ['Go', 'Cobra', 'GoReleaser'],
     type: 'Side project · github.com/jaoskii/yoink-cli',
+    links: [['GitHub', 'https://github.com/jaoskii/yoink-cli']],
     desc: 'Share files across your Wi-Fi with a QR code: run yoink on a file or folder, scan with your phone, tap Download. No app, no cloud, no account.',
     points: [
       'Listens only on the Wi-Fi/Ethernet address, behind a random 130-bit token link',
@@ -87,6 +89,7 @@ window.PROJECTS.push(
     cat: 'Side project · CLI',
     stack: ['Python', 'Typer', 'Rich', 'PyGithub'],
     type: 'Side project · github.com/jaoskii/githappens',
+    links: [['GitHub', 'https://github.com/jaoskii/githappens']],
     desc: 'GitHub from the terminal: manage several accounts, repos, SSH keys and collaborators without opening a browser.',
     points: [
       'Profiles per GitHub account, each with its own token and SSH key',
@@ -110,6 +113,7 @@ window.PROJECTS.push(
     cat: 'Side project · Game',
     stack: ['three.js', 'Vite', 'Railway'],
     type: 'Side project · flappy-bro-production.up.railway.app',
+    links: [['Play it', 'https://flappy-bro-production.up.railway.app'], ['GitHub', 'https://github.com/jaoskii/flappy-bro']],
     desc: 'Flappy Bird as a 3D flyer: weave through a block city and reach each ring before the timer runs out.',
     points: [
       'three.js city of procedural blocks with rings, timers and a miss counter',
@@ -132,6 +136,7 @@ window.PROJECTS.push(
     cat: 'Side project · Dev tool',
     stack: ['Python', 'FastAPI', 'mitmproxy', 'Docker'],
     type: 'Side project · github.com/jaoskii/mitm-intercept-fast-api',
+    links: [['GitHub', 'https://github.com/jaoskii/mitm-intercept-fast-api']],
     desc: 'mitmproxy with a live FastAPI dashboard for intercepting, mocking and rewriting traffic while you test an app.',
     points: [
       'Rules per method and URL: mock a response, rewrite headers or bodies, add latency',
@@ -155,6 +160,7 @@ window.PROJECTS.push(
     cat: 'Side project · Browser extension',
     stack: ['JavaScript', 'Chrome MV3'],
     type: 'Side project · github.com/jaoskii/untangled',
+    links: [['GitHub', 'https://github.com/jaoskii/untangled']],
     desc: 'Chrome side panel that spots raw JSON responses and turns them into a tree you can actually read.',
     points: [
       'Content script detects JSON pages and hands them to the side panel',
@@ -175,6 +181,7 @@ window.PROJECTS.push(
     cat: 'Side project · Web app',
     stack: ['React', 'TypeScript', 'Hono', 'Prisma'],
     type: 'Side project · github.com/jaoskii/atelier-forge',
+    links: [['GitHub', 'https://github.com/jaoskii/atelier-forge']],
     desc: 'Spatial canvas editor: images, text, audio and ink on an infinite board, grouped into sections and linked with connectors.',
     points: [
       'Built on React Flow and Konva, with sections you can export as PNG',

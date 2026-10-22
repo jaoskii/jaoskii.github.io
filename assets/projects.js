@@ -12,12 +12,25 @@ window.PROJECTS = [
     art: 'bars',
     layout: 'wall',
     /* dashboard shots are DOM-masked (staff name → "Admin User"); figures on state totals are the client's aggregates */
+    links: [['megarewards.au', 'https://megarewards.au'], ['Subscribe form', 'https://subscribe.megarewards.au']],
+    /* optional desc / points / stack / links per group replace the project's own in the details card while that tab is picked */
     shotGroups: [
       { id: 'all', label: 'All', note: 'Four front ends on one API: the public site, a subscribe funnel, the admin dashboard and the mobile app.' },
-      { id: 'site', label: 'Website', note: 'megarewards.au: savings, giveaways and community partners, fed by the API instead of hand-edited pages.' },
-      { id: 'subscribe', label: 'Subscribe form', note: 'subscribe.megarewards.au: a five-step signup that tags contacts in GoHighLevel. Routes and tags are set from the dashboard.' },
-      { id: 'dashboard', label: 'Admin dashboard', note: 'Mega Admin: competitions, partners, reels, subscription forms, GHL reports and an asset bucket in one place.' },
-      { id: 'api', label: 'API', note: 'Laravel API: 309 routes, admin JWT / API key / member JWT layers, hourly Facebook and GHL syncs.' },
+      { id: 'site', label: 'Website', note: 'megarewards.au: savings, giveaways and community partners, fed by the API instead of hand-edited pages.',
+        desc: 'Modernized megarewards.au so savings, giveaways and community partners come from the API instead of hand-edited pages.',
+        points: ['Mega Savings: gift cards, discounts and cashbacks', 'Current giveaways for the Mega Loyalty Club', 'Mega Community partners carousel', 'Subscribe-or-login prompt that leads into the subscribe funnel'],
+        links: [['megarewards.au', 'https://megarewards.au']] },
+      { id: 'subscribe', label: 'Subscribe form', note: 'subscribe.megarewards.au: a five-step signup that tags contacts in GoHighLevel. Routes and tags are set from the dashboard.',
+        desc: 'subscribe.megarewards.au: a five-step signup that lands every new member in GoHighLevel, already tagged.',
+        points: ['Five short steps instead of one long form', 'Each signup tagged in GoHighLevel for the right campaign', 'Routes and tags set per form from the admin dashboard, no code changes'],
+        links: [['Subscribe form', 'https://subscribe.megarewards.au']] },
+      { id: 'dashboard', label: 'Admin dashboard', note: 'Mega Admin: competitions, partners, reels, subscription forms, GHL reports and an asset bucket in one place.',
+        desc: 'Mega Admin: one dashboard where the team runs competitions, partners, reels and signup forms, with GoHighLevel and WordPress data pulled into one place.',
+        points: ['Competitions with activation toggles and rollback', 'Subscription forms with GHL tags and dynamic routes', 'Weekly subscribers by state and competition exports from GoHighLevel', 'Asset bucket synced with WordPress, plus an editor for the member onboarding tour'] },
+      { id: 'api', label: 'API', note: 'Laravel API: 309 routes, admin JWT / API key / member JWT layers, hourly Facebook and GHL syncs.',
+        desc: 'One Laravel API behind the website, the subscribe forms, the admin dashboard and the mobile app.',
+        points: ['309 routes, grouped by the app that calls them', 'Three auth layers: admin JWT, API key and member JWT', 'Hourly Facebook and GoHighLevel syncs', 'iGO Direct discount offers API wired into the existing CRM'],
+        stack: ['Laravel', 'REST', 'JWT', 'GoHighLevel'] },
     ],
     images: [
       ['assets/img/megarewards/site-hero.jpg', 'megarewards.au home hero: Save more. Experience more. Enjoy more.', 'site', 'Website · home'],
@@ -70,11 +83,18 @@ window.PROJECTS = [
     art: 'form',
     layout: 'wall',
     /* sample analysis only; the account email in the header is masked */
+    links: [['Live app', 'https://somersoft.mypropertyhouse.com.au']],
     shotGroups: [
       { id: 'all', label: 'All', note: 'Property investment analysis in the browser: enter a property, then read the projection, the charts and the portfolio view.' },
-      { id: 'analysis', label: 'Analysis', note: 'The projection spreadsheet, its charts and the Wealth Builder, all recalculated as values change.' },
-      { id: 'entry', label: 'Data entry', note: 'A four-step check list that fills the spreadsheet: property, finance, investor and what-if rates.' },
-      { id: 'account', label: 'Account', note: 'Sign-in, password reset and the list of saved analyses.' },
+      { id: 'analysis', label: 'Analysis', note: 'The projection spreadsheet, its charts and the Wealth Builder, all recalculated as values change.',
+        desc: 'The core of the product: a projection spreadsheet, its charts and a portfolio builder, all recalculated the moment a value changes.',
+        points: ['Editable 10-year projection: value, loan, equity, cash flow, depreciation, tax credit and IRR', 'Charts for value vs loan, equity growth, after-tax cash flow and weekly cost', 'Wealth Builder: portfolio value, loans, net worth, LVR and DSR year by year'] },
+      { id: 'entry', label: 'Data entry', note: 'A four-step check list that fills the spreadsheet: property, finance, investor and what-if rates.',
+        desc: 'A guided Data Entry Check List that fills the spreadsheet in four steps, so nobody starts from a blank grid.',
+        points: ['Property: price, state, rent and vacancy', 'Finance: deposit, loan type, rate and term', 'Investor details and what-if rates feed the same projection'] },
+      { id: 'account', label: 'Account', note: 'Sign-in, password reset and the list of saved analyses.',
+        desc: 'Accounts are created by an administrator, and every analysis is saved to the server as you work.',
+        points: ['Sign-in and self-serve password reset', 'Saved analyses list right after sign-in', 'Autosave to the API, so an analysis reopens on any device'] },
     ],
     images: [
       ['assets/img/somersoft/sheet.jpg', 'Investment analysis spreadsheet with a 10-year projection', 'analysis', 'Analysis · spreadsheet'],
@@ -115,6 +135,7 @@ window.PROJECTS = [
     cat: 'Mobile · APIs',
     stack: ['iOS', 'Android', 'REST API', 'Auth'],
     type: 'Client work · Diversified Robotics (US), 2024–2025',
+    links: [['App Store', 'https://apps.apple.com/us/app/metro-pulse/id6737127867'], ['Google Play', 'https://play.google.com/store/apps/details?id=com.wmata.metropulse']],
     desc: 'iOS and Android app that tracks WMATA trains and buses, with live vehicle status and details for every station and bus stop.',
     points: ['Live train and bus status', 'REST APIs, data models and transit data feeds', 'One login system shared by the apps and the web app', 'Shipped as Metro Pulse, WMATA’s official app on Google Play and the App Store'],
     art: 'phones',
@@ -170,10 +191,21 @@ window.PROJECTS = [
     /* concept screens recreated for the portfolio with sample data; the original build is no longer online */
     shotGroups: [
       { id: 'all', label: 'All', note: 'Concept recreation: orders arrive as form replies inside Messenger, Viber and Telegram, and land in one inbox per business.' },
-      { id: 'site', label: 'Marketing site', note: 'The pitch: take orders where customers already chat, one inbox for every channel.' },
-      { id: 'tenant', label: 'Tenant app', note: 'Each business gets its own workspace: an orders inbox, a flow builder and a form builder.' },
-      { id: 'chat', label: 'In chat', note: 'What the customer sees: a menu card, an order form in a webview and status updates in the thread.' },
-      { id: 'console', label: 'Console', note: 'Operator console: provision tenants, watch channel health and webhook latency.' },
+      { id: 'site', label: 'Marketing site', note: 'The pitch: take orders where customers already chat, one inbox for every channel.',
+        desc: 'The pitch to businesses: take orders where customers already chat, and work them all from one inbox.',
+        points: ['Ordering inside Messenger, Viber and Telegram', 'One inbox per business for every channel'] },
+      { id: 'tenant', label: 'Tenant app', note: 'Each business gets its own workspace: an orders inbox, a flow builder and a form builder.',
+        desc: 'Each business gets its own workspace to build its ordering flow and work the orders that come in.',
+        points: ['Orders inbox fed by every chat channel', 'Flow builder: message, form, lookup, condition and action steps', 'Order form builder with conditional fields and a live chat preview'],
+        stack: ['Angular', 'Laravel'] },
+      { id: 'chat', label: 'In chat', note: 'What the customer sees: a menu card, an order form in a webview and status updates in the thread.',
+        desc: 'What the customer sees: the whole order happens inside the chat app they already use.',
+        points: ['Menu card in the thread', 'Order form opens in a webview', 'Order status updates posted back to the thread'],
+        stack: ['Messenger', 'Viber', 'Telegram'] },
+      { id: 'console', label: 'Console', note: 'Operator console: provision tenants, watch channel health and webhook latency.',
+        desc: 'The operator console that runs the platform for every business on it.',
+        points: ['Provision tenants and their channels', 'Channel health and webhook latency per tenant', 'Laravel backend coordinating external APIs, SMS and email'],
+        stack: ['Laravel'] },
     ],
     images: [
       ['assets/img/chattee/site.jpg', 'Chattee concept: marketing site, take orders where your customers already chat', 'site', 'Marketing · hero'],
@@ -265,7 +297,11 @@ setInterval(() => {
   });
 }, 2800);
 
-/* Fill a <template> string: {{title}}, {{desc}}, {{art}}, {{chips}}, {{points}}, {{n}}, {{total}} ... */
+/* Official links: links: [[label, url], ...] → buttons that open in a new tab */
+window.projectLinks = links => (links || []).map(([label, url]) =>
+  `<a class="btn btn-sm btn-b bg-white" href="${window.escapeHTML(url)}" target="_blank" rel="noopener">${window.escapeHTML(label)} ↗</a>`).join('');
+
+/* Fill a <template> string: {{title}}, {{desc}}, {{art}}, {{chips}}, {{points}}, {{links}}, {{n}}, {{total}} ... */
 window.fillProject = function (tpl, p, i, n, chipClass) {
   const esc = window.escapeHTML;
   const red = s => (p.nda && window.ndaRedact ? window.ndaRedact(s) : s); // ~~word~~ redaction bars, NDA projects only
@@ -275,6 +311,7 @@ window.fillProject = function (tpl, p, i, n, chipClass) {
     desc: red(esc(p.desc)), points: p.points.map(s => `<li>${red(esc(s))}</li>`).join(''),
     art: p.images ? window.projectShots(p) : p.nda && window.ndaArt ? window.ndaArt(p) : window.projectArt(p.art),
     chips: p.stack.map(s => `<span class="${chipClass || ''}">${esc(s)}</span>`).join(''),
+    links: window.projectLinks(p.links),
   };
   return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => (k in map ? map[k] : ''));
 };
