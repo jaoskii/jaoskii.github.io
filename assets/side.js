@@ -8,7 +8,7 @@ window.PROJECTS.push(
     cat: 'Web · Construction',
     stack: ['Angular', 'GraphQL', 'Apollo', 'AWS'],
     ndaClient: 'MCGP',
-    type: 'Client work · MCGP, 2025–2026',
+    type: 'Client work · MCGP, 2025-2026',
     desc: 'Core Link, the back-office web app for MCGP, a construction company: projects, bills of quantities, canvassing, purchase orders and site inventory in one approval flow.',
     points: [
       'Bill of quantities with scope breakdowns and revisions, from estimate to approved budget',

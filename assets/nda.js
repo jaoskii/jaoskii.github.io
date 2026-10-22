@@ -70,7 +70,7 @@
           <dt>CLIENT</dt><dd>${p.ndaClient ? esc(p.ndaClient) : bar(92, 'position:relative;display:block;height:1em;left:0;top:0')}</dd>
           <dt>SECTOR</dt><dd>${esc(sector)}</dd>
           <dt>ROLE</dt><dd>${esc(role)}</dd>
-          <dt>PERIOD</dt><dd>${esc(years || '—')}</dd>
+          <dt>PERIOD</dt><dd>${esc(years || '-')}</dd>
           <dt>STATUS</dt><dd><span class="nf-live" style="${p.ndaStatus ? 'color:#e8a100' : ''}">●</span> ${esc(p.ndaStatus || 'Shipped')}</dd>
         </dl>
         <div class="nf-label">SCOPE</div>
