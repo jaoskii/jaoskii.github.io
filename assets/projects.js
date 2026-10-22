@@ -60,14 +60,19 @@ window.PROJECTS = [
     ],
   },
   {
-    id: 'my-money-house',
-    title: 'My Money House + Somersoft',
+    id: 'somersoft',
+    title: 'Somersoft',
     cat: 'Web · Full stack',
     stack: ['APIs', 'Dashboards'],
     type: 'Client work · Vault Outsourcing, 2026',
-    desc: 'APIs and front ends for the My Money House website and the Somersoft Investment Analysis System, with reporting dashboards.',
-    points: ['APIs and front end for both products', 'Reporting dashboards for Somersoft investment analysis', 'Shipped through new GitHub → cPanel autodeploy pipelines'],
+    desc: 'API and front end for the Somersoft Property Investment Analysis system, where investors save and reopen their analyses from any device.',
+    points: ['Accounts created by an administrator, with sign-in and password reset by email', 'Saved analyses stored on the Somersoft server', 'Reporting dashboards for investment analysis', 'Shipped through new GitHub → cPanel autodeploy pipelines'],
     art: 'form',
+    layout: 'desk',
+    images: [
+      ['assets/img/somersoft/forgot.jpg', 'Somersoft forgot-password page'],
+      ['assets/img/somersoft/login.jpg', 'Somersoft Property Investment Analysis sign-in'],
+    ],
   },
   {
     id: 'paymaya-installments',
