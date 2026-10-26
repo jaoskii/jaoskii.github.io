@@ -32,11 +32,12 @@ jobs:
 
       - name: Build
         env:
-          # the contact form's shared key (X-Jao-Key); the API refuses the form without it
-          VITE_JAO_CONTACT_KEY: ${{ secrets.JAO_CONTACT_KEY }}
+          # the contact form's shared key (X-Jao-Key), a repository variable: it ends up in the public page anyway.
+          # The API refuses the form without it.
+          VITE_JAO_CONTACT_KEY: ${{ vars.JAO_CONTACT_KEY }}
         run: |
           if [ -z "$VITE_JAO_CONTACT_KEY" ]; then
-            echo "::warning::JAO_CONTACT_KEY secret is not set; the contact form will be refused by the API"
+            echo "::warning::JAO_CONTACT_KEY repository variable is not set; the contact form will be refused by the API"
           fi
           npm run build
 

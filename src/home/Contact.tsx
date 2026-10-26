@@ -1,7 +1,7 @@
 import { useRef, useState, type FormEvent, type ReactNode } from 'react';
 
 /* Contact form → the portfolio endpoint on the inventee.io API (a local API when the page runs on localhost).
-   The key comes from VITE_JAO_CONTACT_KEY at build (the JAO_CONTACT_KEY repo secret, see .github/workflows); the API checks it.
+   The key comes from VITE_JAO_CONTACT_KEY at build (the JAO_CONTACT_KEY repository variable, see .github/workflows); the API checks it.
    Without it (local dev) the placeholder is sent, which a local API can accept by setting JAO_CONTACT_KEY to the same text. */
 const ENDPOINT = ['localhost', '127.0.0.1'].includes(location.hostname) ? 'http://localhost:4000/jao-api/contact' : 'https://api.inventee.io/jao-api/contact';
 const KEY = import.meta.env.VITE_JAO_CONTACT_KEY || '__JAO_CONTACT_KEY__';

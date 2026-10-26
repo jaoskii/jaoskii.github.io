@@ -18,5 +18,6 @@ npm run build    # typecheck + build to dist/
 ```
 
 The contact form posts to the inventee API (`/jao-api/contact`) with an `X-Jao-Key` header. The key comes from
-`VITE_JAO_CONTACT_KEY` at build time; the Pages workflow sets it from the `JAO_CONTACT_KEY` repo secret.
+`VITE_JAO_CONTACT_KEY` at build time; the Pages workflow sets it from the `JAO_CONTACT_KEY` repository variable
+(Settings → Secrets and variables → Actions → Variables).
 Pushing to `master` builds and deploys to GitHub Pages through `.github/workflows/deploy.yml`.
