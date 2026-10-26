@@ -571,7 +571,7 @@
         <p class="mono bg-white bx-sm rounded px-3 py-2 w-fit select-all">dev.rtabora@gmail.com</p>
         <p class="mono text-sm font-semibold">REMOTE · OVERLAPS EST / CST / PST</p>
       </div>
-      <form id="contact-form" class="flex flex-col gap-4" data-endpoint="https://api.inventee.io/jao-api/contact" novalidate>
+      <form id="contact-form" class="flex flex-col gap-4" data-endpoint="https://api.inventee.io/jao-api/contact" data-key="__JAO_CONTACT_KEY__" novalidate>
         <input id="b-name" name="name" required maxlength="120" autocomplete="name" class="input bx-sm w-full bg-white" placeholder="NAME" aria-label="Name">
         <input id="b-email" name="email" type="email" required maxlength="254" autocomplete="email" class="input bx-sm w-full bg-white" placeholder="EMAIL" aria-label="Email">
         <textarea id="b-msg" name="message" required maxlength="3000" class="textarea bx-sm w-full bg-white" rows="3" placeholder="PROJECT" aria-label="Project"></textarea>
@@ -749,7 +749,8 @@ document.getElementById('cv-dl').addEventListener('click', () => {
   cvCard.classList.add('shake');
 });
 
-/* Contact form → the portfolio endpoint on the inventee.io API (a local API when the page runs on localhost) */
+/* Contact form → the portfolio endpoint on the inventee.io API (a local API when the page runs on localhost).
+   data-key is filled from the JAO_CONTACT_KEY repo secret at deploy (see .github/workflows); the API checks it. */
 const cf = document.getElementById('contact-form');
 const cfStatus = cf.querySelector('[data-status]');
 const cfSend = cf.querySelector('[data-send]');
@@ -773,7 +774,7 @@ cf.addEventListener('submit', async e => {
   try {
     const res = await fetch(cfEndpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-Jao-Key': cf.dataset.key },
       body: JSON.stringify(Object.fromEntries(new FormData(cf))),
       signal: AbortSignal.timeout(25000),
     });
