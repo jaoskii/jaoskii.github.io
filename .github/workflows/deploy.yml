@@ -21,22 +21,29 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Insert the contact form key
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
         env:
-          JAO_CONTACT_KEY: ${{ secrets.JAO_CONTACT_KEY }}
+          # the contact form's shared key (X-Jao-Key); the API refuses the form without it
+          VITE_JAO_CONTACT_KEY: ${{ secrets.JAO_CONTACT_KEY }}
         run: |
-          if [ -z "$JAO_CONTACT_KEY" ]; then
+          if [ -z "$VITE_JAO_CONTACT_KEY" ]; then
             echo "::warning::JAO_CONTACT_KEY secret is not set; the contact form will be refused by the API"
-          elif ! printf '%s' "$JAO_CONTACT_KEY" | grep -Eq '^[A-Za-z0-9_-]+$'; then
-            echo "::error::JAO_CONTACT_KEY may only use letters, digits, - and _ (openssl rand -hex 32)"; exit 1
-          else
-            sed -i "s/__JAO_CONTACT_KEY__/${JAO_CONTACT_KEY}/g" index.html
           fi
+          npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: dist
 
   deploy:
     needs: build

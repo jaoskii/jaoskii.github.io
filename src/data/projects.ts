@@ -1,6 +1,112 @@
-/* Shared project data and themed SVG art for the work carousels and the work-*.html detail pages.
-   Page-specific extras live in inventee.js, side.js and nda.js. */
-window.PROJECTS = [
+/* Project data for the work carousel (home) and the case-study slider (work.html).
+   Order: inventee first, then client work, then the extra NDA and side-project slides. */
+
+export type Link = [label: string, url: string];
+/** [src, alt, group?, label?]: groups drive the filter tabs on work.html */
+export type Shot = [src: string, alt: string, group?: string, label?: string];
+export type ArtKind = 'tiles' | 'form' | 'bars' | 'phones' | 'kit';
+export type Layout = 'desk' | 'cascade' | 'fan' | 'wall' | 'pile';
+
+/** A group's optional desc / points / stack / links replace the project's own in the details card while its tab is picked. */
+export interface ShotGroup {
+  id: string;
+  label: string;
+  note: string;
+  desc?: string;
+  points?: string[];
+  stack?: string[];
+  links?: Link[];
+}
+
+export interface Project {
+  id: string;
+  title: string;
+  cat: string;
+  stack: string[];
+  type: string;
+  desc: string;
+  points: string[];
+  art: ArtKind;
+  layout?: Layout;
+  links?: Link[];
+  images?: Shot[];
+  shotGroups?: ShotGroup[];
+  /** NDA projects: no screenshots, a redacted case file instead (see NdaArt). ~~word~~ in desc/points shows as a bar. */
+  nda?: boolean;
+  ndaNote?: string;
+  ndaKind?: 'web' | 'mobile';
+  ndaRole?: string;
+  ndaClient?: string;
+  ndaStatus?: string;
+}
+
+/** Bump when the covers are re-rendered (same file names, so browsers would keep the old ones) */
+export const COVERS_V = '20261023b';
+
+/* inventee.io case study */
+const INVENTEE: Project = {
+  id: 'inventee',
+  title: 'inventee.io',
+  cat: 'SaaS · Multi-tenant',
+  stack: ['NestJS', 'GraphQL', 'PostgreSQL', 'React', 'Flutter'],
+  type: 'Side project · inventee.io, 2026',
+  desc: 'Inventory and accounting SaaS for businesses that buy, stock and sell. A marketing site, a workspace per company at yourcompany.inventee.io, an operator console that provisions them, and a Flutter mobile app.',
+  points: [
+    'Database per tenant: each company gets its own Postgres database, provisioned from the console',
+    '22 document types post once to the stock card, the general ledger and the subledgers, with FIFO cost and lot expiry',
+    'Password + emailed sign-in code, rotating refresh tokens, roles per action and a full audit trail',
+    'Operator console: tenants, invites, storage limits, live sign-ins, themes and platform audit log',
+  ],
+  art: 'tiles',
+  layout: 'desk',
+  links: [['inventee.io', 'https://inventee.io']],
+  /* shots: [src, alt, group, label]; groups drive the filter tabs and note card on the case-study page,
+     and a group's optional desc / points / stack / links replace the project's own in the details card */
+  shotGroups: [
+    { id: 'all', label: 'All', note: 'The whole product: a marketing site, a workspace for every company, the console that runs them, a mobile app and the API behind them all.' },
+    { id: 'site', label: 'Marketing site', note: 'www.inventee.io: the pitch, a sample branch dashboard and an inquiry form that lands in the console.',
+      desc: 'www.inventee.io sells the product: what it does, a sample branch dashboard and a stock card you can try before talking to anyone.',
+      points: ['Live stock card demo that posts a receiving report', 'Sample branch dashboard', 'Inquiry form instead of open signup; leads land in the operator console'],
+      stack: ['React', 'Radix UI'] },
+    { id: 'tenant', label: 'Tenant app', note: "Each company's own workspace at yourcompany.inventee.io: documents, stock, the books and 94 reports.",
+      desc: "Each company's own workspace at yourcompany.inventee.io, where documents, stock and the books stay in step.",
+      points: ['22 document types post once to the stock card, the general ledger and the subledgers', 'FIFO cost and lot expiry on every line', 'Roles and permissions per module and action, with a full audit trail', 'Report catalog with 94 reports'],
+      stack: ['React', 'Radix UI', 'Apollo Client', 'GraphQL'] },
+    { id: 'console', label: 'Console', note: 'Operator console: provision tenants, invite first admins, watch sign-ins and storage, set themes.',
+      desc: 'The operator console that runs the platform: every workspace, its database and its first admin start here.',
+      points: ['Provision a tenant and its own Postgres database', 'Invite first admins and track invite status', 'Live sign-ins and storage limits per workspace', 'Eleven light and dark themes, plus the platform audit log'],
+      stack: ['React', 'Radix UI'] },
+    { id: 'mobile', label: 'Mobile', note: 'One iOS and Android app for every workspace: scan a product, work the documents, check the books.',
+      desc: "One Flutter app for every workspace on iOS and Android: enter your workspace, sign in, and the app takes on that company's branding.",
+      points: ['Product inquiry by camera scan, hardware scanner or search: stock per warehouse with expiry, prices and stockcard history', "The web app's document engine: 14 stock and 8 accounting document types, scan-burst entry, post / unpost and read-only GL entries", 'Masters, utilities and admin (users, roles, branches, lock date); everything but reports and printing', 'Tablet layout, 11 light and dark themes, Maestro end-to-end flows on iOS and Android'],
+      stack: ['Flutter', 'Dart', 'Riverpod', 'GraphQL'] },
+    { id: 'api', label: 'API', note: 'api.inventee.io: one NestJS GraphQL API, a Postgres database per company, picked per request from the X-Tenant header.',
+      desc: 'api.inventee.io: one NestJS GraphQL API behind the site, every workspace, the console and the mobile app.',
+      points: ['127 GraphQL operations, grouped by module, each behind guards', 'Database per company, picked per request from the X-Tenant header', 'Password + emailed sign-in code, rotating refresh tokens'],
+      stack: ['NestJS', 'GraphQL', 'Prisma', 'PostgreSQL'] },
+  ],
+  images: [
+    ['assets/img/inventee/site-hero.jpg', 'inventee.io marketing site hero: Every unit, accounted for', 'site', 'Marketing · hero'],
+    ['assets/img/inventee/site-dashboard.jpg', 'inventee.io marketing site with a sample branch dashboard', 'site', 'Marketing · sample dashboard'],
+    ['assets/img/inventee/site-stock-card.jpg', 'Marketing site live stock card demo posting a receiving report', 'site', 'Marketing · stock card demo'],
+    ['assets/img/inventee/tenant-sign-in.jpg', 'Tenant workspace sign-in with a live stock card', 'tenant', 'Tenant · sign-in'],
+    ['assets/img/inventee/tenant-dashboard.jpg', 'Tenant dashboard with sales, receivables, payables and unposted documents', 'tenant', 'Tenant · dashboard'],
+    ['assets/img/inventee/tenant-sales-journal.jpg', 'Posted sales journal with barcode item lines', 'tenant', 'Tenant · sales journal'],
+    ['assets/img/inventee/tenant-items.jpg', 'Stockcard item master with stock, expiry and inventory value tiles', 'tenant', 'Tenant · item master'],
+    ['assets/img/inventee/tenant-reports.jpg', 'Report catalog with 94 reports and balance sheet filters', 'tenant', 'Tenant · reports'],
+    ['assets/img/inventee/tenant-roles.jpg', 'Roles and permissions matrix per module and action', 'tenant', 'Tenant · roles & permissions'],
+    ['assets/img/inventee/console-overview.jpg', 'Operator console overview: workspaces, users, storage and workspace health', 'console', 'Console · overview'],
+    ['assets/img/inventee/console-tenants.jpg', 'Operator console tenant list with first-admin invite status', 'console', 'Console · tenants'],
+    ['assets/img/inventee/console-themes.jpg', 'Operator console theme picker with eleven light and dark themes', 'console', 'Console · themes'],
+    ['assets/img/inventee/mobile-1.jpg', 'Inventee mobile app: workspace sign-in, the home dashboard with this month\'s sales, purchases, receivables and payables, and a product inquiry with stock by warehouse, expiry and price', 'mobile', 'Mobile · sign-in to dashboard'],
+    ['assets/img/inventee/mobile-2.jpg', 'Inventee mobile app: the Documents menu, a posted sales journal with lot expiry per line, and its balanced accounting entries', 'mobile', 'Mobile · documents & GL entries'],
+    ['assets/img/inventee/mobile-3.jpg', 'Inventee mobile app: an item stockcard with running balance, then the Masters and More menus in dark mode', 'mobile', 'Mobile · stock, masters & admin'],
+    ['assets/img/inventee/api-hub.jpg', 'Diagram: one API serving the marketing site, tenant app and console, with a database per company', 'api', 'API · hub'],
+    ['assets/img/inventee/api-schema.jpg', 'Schema map: 127 GraphQL operations by module, guards and a sample stock card query', 'api', 'API · schema map'],
+  ],
+};
+
+const CLIENT: Project[] = [
   {
     id: 'megarewards-platform',
     title: 'Megarewards platform',
@@ -256,61 +362,206 @@ window.PROJECTS = [
     ],
   },
 ];
+/* Extra case-study slides: two NDA client projects, then side projects. */
+const EXTRA: Project[] = [
+  {
+    id: 'mcgp-core-link',
+    nda: true,
+    ndaRole: 'Full stack · Angular + GraphQL',
+    title: 'MCGP Core Link',
+    cat: 'Web · Construction',
+    stack: ['Angular', 'GraphQL', 'Apollo', 'AWS'],
+    ndaClient: 'MCGP',
+    type: 'Client work · MCGP, 2025-2026',
+    desc: 'Core Link, the back-office web app for MCGP, a construction company: projects, bills of quantities, canvassing, purchase orders and site inventory in one approval flow.',
+    points: [
+      'Bill of quantities with scope breakdowns and revisions, from estimate to approved budget',
+      'Requisition → canvass → purchase order → payment request, each with its own signatories',
+      'Material inventory per site: receiving, withdrawals and stock movement',
+      'Angular 20 with SSR and Apollo GraphQL, deployed to S3 + CloudFront through CodeBuild',
+    ],
+    art: 'form',
+    ndaKind: 'web',
+  },
+  {
+    id: 'aurora-loyalty',
+    nda: true,
+    ndaRole: 'Full stack · NestJS + Flutter + Angular',
+    title: 'AURora loyalty platform',
+    cat: 'Mobile · Loyalty',
+    stack: ['Flutter', 'NestJS', 'GraphQL', 'Angular'],
+    ndaClient: 'Unilab',
+    ndaStatus: 'In development',
+    type: 'Client work · Unilab, 2026',
+    desc: 'AURora, the loyalty platform for Unilab: a member app, a staff admin and one GraphQL API, specified from a full BRD of use cases and user stories.',
+    points: [
+      'Flutter member app: registration with Google/Facebook sign-in, QR member card, wallet and rewards',
+      'NestJS GraphQL API for identity, membership tiers, earning rules, wallet and audit trail',
+      'Angular staff admin for member administration and earning configuration',
+      'Clean architecture with BLoC, generated GraphQL types and a shared AI-assisted workspace',
+    ],
+    art: 'phones',
+    ndaKind: 'mobile',
+  },
+  {
+    id: 'snipr',
+    title: 'snipr',
+    cat: 'Side project · Mobile',
+    stack: ['Flutter', 'Riverpod', 'FFmpeg', 'SQLite'],
+    type: 'Side project · github.com/jaoskii/snipr',
+    links: [['GitHub', 'https://github.com/jaoskii/snipr']],
+    desc: 'Flutter app for gaming clips: trim and compress highlights to fit Discord, then mark up screenshots before sharing them.',
+    points: [
+      'Two-pass FFmpeg encode that lands clips under the Discord upload limit',
+      'Screenshot studio with arrows, boxes, spotlight, redaction and meme captions',
+      'Local history of past clips and edits in SQLite',
+    ],
+    art: 'phones',
+    layout: 'fan',
+    images: [
+      ['assets/img/side/snipr-studio.jpg', 'Snipr studio home, video upload and the screenshot annotator'],
+      ['assets/img/side/snipr-onboarding.jpg', 'Snipr onboarding: Clip it. Ship it.'],
+      ['assets/img/side/snipr-compress.jpg', 'Highlight and compress: timeline trim, Discord presets and a 4.1 MB result'],
+      ['assets/img/side/snipr-history.jpg', 'History of processed clips, the side drawer and spotlight plus redaction in the studio'],
+    ],
+  },
+  {
+    id: 'yoink-cli',
+    title: 'yoink',
+    cat: 'Side project · CLI',
+    stack: ['Go', 'Cobra', 'GoReleaser'],
+    type: 'Side project · github.com/jaoskii/yoink-cli',
+    links: [['GitHub', 'https://github.com/jaoskii/yoink-cli']],
+    desc: 'Share files across your Wi-Fi with a QR code: run yoink on a file or folder, scan with your phone, tap Download. No app, no cloud, no account.',
+    points: [
+      'Listens only on the Wi-Fi/Ethernet address, behind a random 130-bit token link',
+      'Folders stream as a zip on the fly; single files resume through HTTP range requests',
+      'Terminal QR code and live progress, one static binary for macOS, Linux and Windows',
+    ],
+    art: 'kit',
+    layout: 'desk',
+    images: [
+      ['assets/img/side/yoink-session.jpg', 'yoink sharing a 42-file folder: QR code, link and live download progress'],
+      ['assets/img/side/yoink-phone.jpg', 'The phone download page in dark and light, and a finished download'],
+      ['assets/img/side/yoink-resume.jpg', 'yoink --once with an interrupted download that resumes and completes'],
+      ['assets/img/side/yoink-help.jpg', 'yoink --help with the share flags'],
+    ],
+  },
+  {
+    id: 'githappens',
+    title: 'githappens',
+    cat: 'Side project · CLI',
+    stack: ['Python', 'Typer', 'Rich', 'PyGithub'],
+    type: 'Side project · github.com/jaoskii/githappens',
+    links: [['GitHub', 'https://github.com/jaoskii/githappens']],
+    desc: 'GitHub from the terminal: manage several accounts, repos, SSH keys and collaborators without opening a browser.',
+    points: [
+      'Profiles per GitHub account, each with its own token and SSH key',
+      'Repo create and visibility, SSH key generation and upload, collaborator invites',
+      'AI repo analysis through Antigravity and the GitHub MCP server',
+    ],
+    art: 'kit',
+    layout: 'cascade',
+    /* session shot uses sample accounts, not real profiles */
+    images: [
+      ['assets/img/side/githappens-session.jpg', 'githappens session: profile list, repo create and collaborator invite'],
+      ['assets/img/side/githappens-help.jpg', 'githappens --help with the analyze, profile, repo, ssh and collab commands'],
+      ['assets/img/side/githappens-ssh.jpg', 'githappens ssh setup and ssh list'],
+      ['assets/img/side/githappens-visibility.jpg', 'githappens switching a repo from private to public'],
+      ['assets/img/side/githappens-analyze.jpg', 'githappens AI analysis of a repo'],
+    ],
+  },
+  {
+    id: 'flappy-bro',
+    title: 'flappy-bro',
+    cat: 'Side project · Game',
+    stack: ['three.js', 'Vite', 'Railway'],
+    type: 'Side project · flappy-bro-production.up.railway.app',
+    links: [['Play it', 'https://flappy-bro-production.up.railway.app'], ['GitHub', 'https://github.com/jaoskii/flappy-bro']],
+    desc: 'Flappy Bird as a 3D flyer: weave through a block city and reach each ring before the timer runs out.',
+    points: [
+      'three.js city of procedural blocks with rings, timers and a miss counter',
+      'Keyboard controls on desktop, twin sticks and a rise button on phones',
+      'Deployed on Railway, playable in any browser',
+    ],
+    art: 'tiles',
+    layout: 'pile',
+    images: [
+      ['assets/img/side/flappy-mobile.jpg', 'Flappy Bro on a phone with twin sticks and a rise button'],
+      ['assets/img/side/flappy-2.jpg', 'Flappy Bro mid-flight towards the next ring'],
+      ['assets/img/side/flappy-1.jpg', 'Flappy Bro start screen with the controls'],
+      ['assets/img/side/flappy-3.jpg', 'Flappy Bro banking between towers'],
+      ['assets/img/side/flappy-4.jpg', 'Flappy Bro splat screen after hitting a tower'],
+    ],
+  },
+  {
+    id: 'mitmproxy-fastapi',
+    title: 'mitmproxy-fastapi',
+    cat: 'Side project · Dev tool',
+    stack: ['Python', 'FastAPI', 'mitmproxy', 'Docker'],
+    type: 'Side project · github.com/jaoskii/mitm-intercept-fast-api',
+    links: [['GitHub', 'https://github.com/jaoskii/mitm-intercept-fast-api']],
+    desc: 'mitmproxy with a live FastAPI dashboard for intercepting, mocking and rewriting traffic while you test an app.',
+    points: [
+      'Rules per method and URL: mock a response, rewrite headers or bodies, add latency',
+      'Live traffic feed over WebSockets with a flow inspector for requests and responses',
+      'One container runs the proxy and the dashboard; CA cert download built in',
+    ],
+    art: 'bars',
+    layout: 'desk',
+    /* rules and traffic are sample data */
+    images: [
+      ['assets/img/side/mitm-1.jpg', 'Interception rules and the live traffic feed'],
+      ['assets/img/side/mitm-inspect.jpg', 'Flow inspector showing a rewritten response body'],
+      ['assets/img/side/mitm-edit.jpg', 'Editing a mock-response rule'],
+      ['assets/img/side/mitm-mock.jpg', 'Inspector showing the mocked 503 checkout response'],
+      ['assets/img/side/mitm-new.jpg', 'Creating a latency rule'],
+    ],
+  },
+  {
+    id: 'untangled',
+    title: 'untangled',
+    cat: 'Side project · Browser extension',
+    stack: ['JavaScript', 'Chrome MV3'],
+    type: 'Side project · github.com/jaoskii/untangled',
+    links: [['GitHub', 'https://github.com/jaoskii/untangled']],
+    desc: 'Chrome side panel that spots raw JSON responses and turns them into a tree you can actually read.',
+    points: [
+      'Content script detects JSON pages and hands them to the side panel',
+      'Collapsible tree with key counts, size, search highlighting and copy',
+      'Light and dark themes, remembered per browser',
+    ],
+    art: 'form',
+    layout: 'wall',
+    images: [
+      ['assets/img/side/untangled-chrome.jpg', 'Untangled next to a raw JSON response in Chrome'],
+      ['assets/img/side/untangled-themes.jpg', 'Untangled side panel in dark and light themes, searching for "price"'],
+      ['assets/img/side/untangled-tools.jpg', 'Collapsed tree summaries and the paste-JSON box'],
+    ],
+  },
+  {
+    id: 'atelier-forge',
+    title: 'atelier-forge',
+    cat: 'Side project · Web app',
+    stack: ['React', 'TypeScript', 'Hono', 'Prisma'],
+    type: 'Side project · github.com/jaoskii/atelier-forge',
+    links: [['GitHub', 'https://github.com/jaoskii/atelier-forge']],
+    desc: 'Spatial canvas editor: images, text, audio and ink on an infinite board, grouped into sections and linked with connectors.',
+    points: [
+      'Built on React Flow and Konva, with sections you can export as PNG',
+      'Runs local-only (localStorage + IndexedDB) or against its Hono + Prisma API',
+      'AI App Builder turns a section into a React or Flutter app, through a server-side AI proxy',
+    ],
+    art: 'tiles',
+    layout: 'cascade',
+    images: [
+      ['assets/img/side/atelier-1.jpg', 'Atelier Forge board with a moodboard section and a copy and palette section'],
+      ['assets/img/side/atelier-focus.jpg', 'Camera focused on one section with connectors'],
+      ['assets/img/side/atelier-prompt.jpg', 'App Builder: turn a section into a React or Flutter app with AI'],
+      ['assets/img/side/atelier-ai.jpg', 'AI provider settings: Gemini, Claude, OpenAI, OpenRouter and more'],
+      ['assets/img/side/atelier-export.jpg', 'Export menu: PNG, PDF and .spatial project JSON'],
+    ],
+  },
+];
 
-window.escapeHTML = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-/* Mock artwork per project. Colours, stroke, radius and shadow come from --art-* custom properties,
-   so each style themes the same drawing differently. */
-window.projectArt = function (kind) {
-  const r = (x, y, w, h, c) => `<rect class="${c}" x="${x}" y="${y}" width="${w}" height="${h}"/>`;
-  const shapes = {
-    tiles: r(20, 20, 120, 95, 'a0') + r(155, 20, 225, 95, 'a1') + r(20, 130, 225, 100, 'a2') + r(260, 130, 120, 100, 'a3'),
-    form: r(40, 28, 320, 194, 'a0') + r(70, 58, 190, 14, 'a2') + r(70, 86, 130, 14, 'a3') + r(70, 150, 120, 40, 'a1') + '<circle class="a2" cx="318" cy="72" r="22"/>',
-    bars: [60, 120, 90, 170, 130].map((h, i) => r(40 + i * 66, 220 - h, 46, h, i === 3 ? 'a1' : i === 1 ? 'a2' : 'a0')).join('') + r(30, 224, 340, 4, 'a3'),
-    phones: r(105, 22, 84, 206, 'a0') + r(118, 44, 58, 34, 'a1') + r(118, 88, 58, 10, 'a2') + r(118, 106, 40, 10, 'a2') + r(212, 12, 84, 206, 'a1') + r(225, 34, 58, 120, 'a0'),
-    kit: r(40, 70, 110, 110, 'a0') + r(110, 45, 110, 110, 'a1') + r(180, 80, 110, 110, 'a2') + r(250, 55, 110, 110, 'a3') + '<circle class="a1" cx="340" cy="200" r="22"/>',
-  };
-  return `<svg class="art-svg" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">${r(0, 0, 400, 250, 'bg')}${shapes[kind] || shapes.tiles}</svg>`;
-};
-
-/* Real screenshots for projects that have them; several images cross-fade (see the timer below). */
-window.projectShots = function (p) {
-  const esc = window.escapeHTML;
-  return `<div class="art-shots">${p.images.map(([src, alt], k) =>
-    `<img src="${esc(src)}" alt="${esc(alt)}" ${k ? 'loading="lazy" ' : ''}class="${k ? '' : 'on'}" draggable="false">`).join('')}</div>`;
-};
-setInterval(() => {
-  if (document.hidden || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  document.querySelectorAll('.art-shots:not(.shots-stack)').forEach(box => {
-    const imgs = box.children; if (imgs.length < 2) return;
-    const k = [...imgs].findIndex(im => im.classList.contains('on')); if (k < 0) return;
-    imgs[k].classList.remove('on'); imgs[(k + 1) % imgs.length].classList.add('on');
-  });
-}, 2800);
-
-/* Bump when the covers are re-rendered (same file names, so browsers would keep the old ones) */
-window.COVERS_V = '20261023b';
-
-/* Official links: links: [[label, url], ...] → buttons that open in a new tab */
-window.projectLinks = links => (links || []).map(([label, url]) =>
-  `<a class="btn btn-sm btn-b bg-white" href="${window.escapeHTML(url)}" target="_blank" rel="noopener">${window.escapeHTML(label)} ↗</a>`).join('');
-
-/* Fill a <template> string: {{title}}, {{desc}}, {{art}}, {{chips}}, {{points}}, {{links}}, {{n}}, {{total}} ... */
-window.fillProject = function (tpl, p, i, n, chipClass) {
-  const esc = window.escapeHTML;
-  const red = s => (p.nda && window.ndaRedact ? window.ndaRedact(s) : s); // ~~word~~ redaction bars, NDA projects only
-  const map = {
-    id: p.id, i: i, n: String(i + 1).padStart(2, '0'), total: String(n).padStart(2, '0'),
-    title: esc(p.title), cat: esc(p.cat), type: esc(p.type) + (p.nda ? ' · under NDA' : ''),
-    desc: red(esc(p.desc)), points: p.points.map(s => `<li>${red(esc(s))}</li>`).join(''),
-    art: p.images ? window.projectShots(p) : p.nda && window.ndaArt ? window.ndaArt(p) : window.projectArt(p.art),
-    // static designed cover (assets/img/covers/<id>.jpg, rendered from the screenshots) for cards; falls back to the art
-    cover: p.images && !p.nda
-      ? `<img class="art-cover" src="assets/img/covers/${esc(p.id)}.jpg?v=${window.COVERS_V}" alt="${esc(p.title)}: ${esc(p.images[0][1])}" loading="lazy" draggable="false">`
-      : null,
-    chips: p.stack.map(s => `<span class="${chipClass || ''}">${esc(s)}</span>`).join(''),
-    links: window.projectLinks(p.links),
-  };
-  map.cover = map.cover || map.art;
-  return tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => (k in map ? map[k] : ''));
-};
+export const PROJECTS: Project[] = [INVENTEE, ...CLIENT, ...EXTRA];

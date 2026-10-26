@@ -3,3 +3,6 @@ Thumbs.db
 .vscode/
 .idea/
 .claude/
+node_modules/
+dist/
+*.tsbuildinfo
