@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@plugin "daisyui";
+/* the old pages scanned class names at runtime; keep the data file in the scan so classes used only there are generated */
+@source "../data";
